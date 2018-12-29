@@ -1,0 +1,58 @@
+/**Niech będzie dana baza danych zawierająca predykaty 
+ * parent/2, 
+ * female/1 i 
+ * male/1.
+ * Proszę zdefiniować predykaty 
+ * child/2, 
+ * mother/2, 
+ * sister/2, 
+ * has_a_child/1, g
+ * grandparent/2 o
+ * raz predecessor/2.
+ * https://users.cs.jmu.edu/adamses/Web/CS%20430%20Fall%202004/Code%20Examples/My%20Prolog%20Examples/family.htm**/
+
+female(jola).
+male(krzysiek).
+female(weronika).
+female(julia).
+male(piotr).
+male(janek).
+male(roman).
+female(krystyna).
+female(bozena).
+
+parent(bozena, piotr).
+parent(jola, weronika).
+parent(krzysiek, weronika).
+parent(jola, julia).
+parent(krzysiek, julia).
+parent(danka, krzysiek).
+parent(janek, krzysiek).
+parent(krystyna, jola).
+parent(roman, jola).
+parent(krystyna, bozena).
+parent(krystyna, unknown).
+parent(roman, bozena).
+
+child(Kid,Parent) :- parent(Parent,Kid).
+
+mother(Parent, Child) :- female(Parent), parent(Parent, Child).
+
+father(Parent, Child) :- male(Parent), parent(Parent, Child).
+
+sister(X,Y) :- female(X), parent(Z, X),
+    parent(Z, Y).
+
+sister_blood(Sis, Sibling) :- female(Sis), mother(Mother, Sis),
+    mother(Mother, Sibling), father(Father, Sibling), father(Father, Sis).
+
+has_child(Someone) :- parent(Someone, _).
+
+grandparent(Someone, Kid) :- parent(Z,Kid),
+    parent(Someone, Z).
+
+
+predecessor(Old, Young) :- parent(Old,  Young).
+predecessor(Old, Young) :- parent(Someone,  Young), predecessor(Old,Someone).
+
+    
