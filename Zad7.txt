@@ -1,0 +1,80 @@
+st(X,L), który jest spełniony, jeżeli X jest ostatnim elementem listy L. **/
+
+last2([L],L).
+last2([T|H],L) :- last(H,L).
+
+/**delete(X,L1,L2), który jest spełniony, jeżeli L2 równa się L1 bez elementu X. 
+ * */
+delete2(_,[],[]).
+delete2(H,[H|T],T).
+delete2(X,[Z|L1],[Z|L2]) :-
+    delete2(X,L1,L2).
+
+/**delete(L1,L2), który jest spełniony, jeżeli L2 równa się L1 bez ostatnich trzech elementów. **/
+delete3([],[]).
+delete3([_,_,_],[]).
+delete3([H|T],H).
+delete3([Z|L1],[Z|L2]) :-
+    delete3(L1,L2).
+
+
+
+
+
+/**reverse(L1,L2), który jest spełniony, jeżeli L2 jest listą L1 w odwrotnej kolejności.**/
+reverse2([H1|T1],[H2|T2]) :-
+    H1=T2,
+    reverse2(T1,H2).
+reverse2([],[]).
+
+/**http://eclipseclp.org/doc/bips/lib/lists/reverse-2.html**/
+reverse3(List, Rev) :-
+        reverse3(List, Rev, []).
+
+reverse3([], L, L).
+reverse3([H|T], L, SoFar) :-
+        reverse3(T, L, [H|SoFar]).
+
+
+/**http://www.learnprolognow.org/lpnpage.php?pagetype=html&pageid=lpn-htmlse25 **/
+
+pal([]).
+pal(X) :-
+    reverse(Rev, X),
+	X=Rev.
+
+evenlength(L) :- 
+    length(L,X),
+    0 is mod(X,2).
+
+oddlength(L) :- 
+    length(L,X),
+    Y is mod(X,2),
+    Y \= 0.
+
+shift2([],[]).
+shift2([H|T],L) :- 
+    append(T,[H],L).
+
+/**https://nscpolteksby.ac.id/ebook/files/Ebook/Computer%20Engineering/Prolog%20Techniques%20(2009)/2.%20Chapter%201%20-%20Accumulator%20Technique.pdf**/
+quadrat([],[]).
+quadrat([H1|T1], [H2|T2]) :-
+    Q = H1**2,
+    H2 is Q,
+    quadrat(T1,T2).
+
+combine([],[],[]).
+combine([X],[Y],[[X,Y]]).
+combine([H1|T1],[H2|T2],[LH|LT]) :-
+    LH = [H1, H2],
+    combine(T1,T2,LT).
+    
+    
+    
+
+
+    
+    
+    
+
+
