@@ -1,0 +1,10 @@
+memberc(X,[X|_]) :- !.
+memberc(X,[_|L]) :- memberc(X,L).
+
+wykonje break po znalezieniu pierwszego wystapienia poszukiwanego elementu, 
+a klasyczna implementacja member:
+
+member3(X,[X|R]).
+member3(X,[Y|R]) :- member(X,R).
+
+bedzie zwracala true x ilosc wystapien X.

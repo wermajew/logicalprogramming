@@ -1,0 +1,25 @@
+ max(X,Y,Z) :- X >= Y, !, X = Z.
+ max(X,Y,Y).
+
+ame: they’re called green cuts.
+
+But some readers will dislike this code. After all, isn’t the second line redundant? If we have to use this line, we already know that the first argument is bigger that the second. Couldn’t we squeeze out a little more efficiency with the help of our new cut construct? Let’s try. Here’s a first (faulty) attempt:
+
+   max(X,Y,Y)  :-  X  =<  Y,!. 
+   max(X,Y,X).
+Note that is the same as our earlier green cut max/3 , except that we have got rid of the > test in the second clause. How good is it? Well, for some queries it’s fine. In particular, it answers correctly when we pose queries in which the third argument is a variable. For example:
+
+   ?-  max(100,101,X). 
+    
+   X  =  101 
+   yes
+and
+
+   ?-  max(3,2,X). 
+    
+   X  =  3 
+   yes
+Nonetheless, it’s not the same as the green cut program: the new max/3 does not work correctly. Consider what happens when all three arguments are instantiated. For example, consider the query
+
+   ?-  max(2,3,2).
+Obviously this query should fail. But in our new version, it will succeed! Why? Well, this query simply won’t unify with the head of the first clause, so Prolog goes straight to the second clause. And the query will unify with the second clause, and (trivially) the query succeeds! So maybe getting rid of that > test wasn’t quite so smart after all.
