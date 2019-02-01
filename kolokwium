@@ -1,0 +1,57 @@
+reverse3(List, Rev) :-
+        reverse3(List, Rev, []).
+
+reverse3([], L, L).
+reverse3([H|T], L, SoFar) :-
+reverse3(T, L, [H|SoFar]).
+
+combine([],[],[]).
+combine([H1|T1],[H2|T2],[H3|T3]) :-
+    H3=[H1,H2],
+    combine(T1,T2,T3).
+
+/**combine([1,2,3,4], [a,b,c,d], L).**/
+
+
+neig(X,Y,[_,H2|T1]):- neig(X,Y,[H2|T1]).
+neig(X,Y,[X,Y|_]).
+neig(X,Y,[Y,X|_]).
+
+
+myflatten([],[]).
+
+%% For a non-empty list: flatten the head and flatten the tail and
+%% append the results.
+myflatten([Head|InTail],Out) :-
+	myflatten(Head,FlatHead),
+	myflatten(InTail,OutTail),
+	append(FlatHead,OutTail,Out).
+
+
+myflatten([Head|InTail], [Head|OutTail]) :-
+	Head \= [],
+	Head \= [_|_],
+        myflatten(InTail,OutTail).
+
+sum(nil,0).
+sum(d(X,L,P),N) :-
+    sum(L,N1),
+    sum(P,N2),
+    N is X+N1+N2.
+/**sum(d(1,d(2,nil,nil),d(2,nil,nil)), Y).***/
+    
+squares(nil, nil).
+squares(d(X,L,P),d(Y,L2,P2)) :-
+        Y is X*X,
+    squares(L,L2),
+    squares(P,P2).
+/**squares(d(1,d(2,nil,nil),d(6,nil,nil)), Y)**/
+
+inner_nodes(d(_,d(_,_,_),d(_,_,_)),2).
+inner_nodes(d(_,d(_,_,_),nil),1).
+inner_nodes(d(_,nil,d(_,_,_)),1).
+inner_nodes(d(_,L,P), N) :- 
+    inner_nodes(L,N1),
+    inner_nodes(P,N2),
+    N=N1+N2+1.
+/**inner_nodes(d(1,d(2,nil,nil),d(6,nil,nil)), Y)**/
