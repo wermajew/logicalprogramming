@@ -23,3 +23,9 @@ Nonetheless, it’s not the same as the green cut program: the new max/3 does no
 
    ?-  max(2,3,2).
 Obviously this query should fail. But in our new version, it will succeed! Why? Well, this query simply won’t unify with the head of the first clause, so Prolog goes straight to the second clause. And the query will unify with the second clause, and (trivially) the query succeeds! So maybe getting rid of that > test wasn’t quite so smart after all.
+
+/** Another attempt - 20 ***/
+max2(X,Y,Z) :- X >= Y, Z=X, !. 
+max2(X,Y,Z) :- X =< Y, Z=Y, !.
+max2(X,Y,Z) :- Y=Z, !, fail.
+max2(X,Y,Y).
