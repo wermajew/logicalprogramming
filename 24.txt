@@ -1,0 +1,15 @@
+ animate(fred).
+ animate(alice).
+ male(fred).
+ canine(alice).
+ feline(fred).
+
+checkprops(A,[]).
+checkprops(A, [X|L]) :-
+    T=..[X,A],
+    checkprops(A,L).
+    
+
+/*** TESTS
+checkprops(fred, [animate, male]).
+checkprops(alice, [animate, feline]).***/
