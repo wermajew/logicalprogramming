@@ -29,3 +29,8 @@ max2(X,Y,Z) :- X >= Y, Z=X, !.
 max2(X,Y,Z) :- X =< Y, Z=Y, !.
 max2(X,Y,Z) :- Y=Z, !, fail.
 max2(X,Y,Y).
+
+
+/***21 - standard member for such input :member(1,[1,1,1,1]) would return true for each occurence of 1, on the other hand, memberc with cut would kind of "break" after finding first occurence - so only one true answer is returned***/
+memberc(X,[X|_]) :- !.
+memberc(X,[_|L]) :- memberc(X,L).
