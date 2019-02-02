@@ -11,21 +11,9 @@ delete2(X,[Z|L1],[Z|L2]) :-
     delete2(X,L1,L2).
 
 /**delete(L1,L2), który jest spełniony, jeżeli L2 równa się L1 bez ostatnich trzech elementów. **/
-delete3([],[]).
 delete3([_,_,_],[]).
-delete3([H|T],H).
 delete3([Z|L1],[Z|L2]) :-
-    delete3(L1,L2).
-
-
-
-
-
-/**reverse(L1,L2), który jest spełniony, jeżeli L2 jest listą L1 w odwrotnej kolejności.**/
-reverse2([H1|T1],[H2|T2]) :-
-    H1=T2,
-    reverse2(T1,H2).
-reverse2([],[]).
+delete3(L1,L2).
 
 /**http://eclipseclp.org/doc/bips/lib/lists/reverse-2.html**/
 reverse3(List, Rev) :-
