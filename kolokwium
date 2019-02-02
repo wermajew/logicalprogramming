@@ -1,9 +1,18 @@
-reverse3(List, Rev) :-
-        reverse3(List, Rev, []).
+reverse2(L,RevL) :- 
+    reverse2(L,RevL,[]).
 
-reverse3([], L, L).
-reverse3([H|T], L, SoFar) :-
-reverse3(T, L, [H|SoFar]).
+reverse2([], L, L).
+reverse2([H|T], RevL, SoFar) :-
+    reverse2(T, RevL, [H|SoFar]).
+
+
+flatten2([],[]). 
+flatten2([X|Xs],Y) :- 
+    flatten2(X,XF), 
+    flatten2(Xs,XsF), 
+    append(XF,XsF,Y).
+
+flatten2(X,[X]).
 
 combine([],[],[]).
 combine([H1|T1],[H2|T2],[H3|T3]) :-
@@ -16,22 +25,6 @@ combine([H1|T1],[H2|T2],[H3|T3]) :-
 neig(X,Y,[_,H2|T1]):- neig(X,Y,[H2|T1]).
 neig(X,Y,[X,Y|_]).
 neig(X,Y,[Y,X|_]).
-
-
-myflatten([],[]).
-
-%% For a non-empty list: flatten the head and flatten the tail and
-%% append the results.
-myflatten([Head|InTail],Out) :-
-	myflatten(Head,FlatHead),
-	myflatten(InTail,OutTail),
-	append(FlatHead,OutTail,Out).
-
-
-myflatten([Head|InTail], [Head|OutTail]) :-
-	Head \= [],
-	Head \= [_|_],
-        myflatten(InTail,OutTail).
 
 sum(nil,0).
 sum(d(X,L,P),N) :-
